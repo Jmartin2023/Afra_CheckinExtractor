@@ -118,11 +118,7 @@
 			<artifactId>allure-testng</artifactId>
 			<version>2.20.1</version>
 		</dependency>
-		<dependency>
-			<groupId>Assignment</groupId>
-			<artifactId>Assignment</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 	</dependencies>
 	<repositories>
       <repository>
