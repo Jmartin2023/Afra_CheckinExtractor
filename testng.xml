@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Suite" parallel="tests" thread-count="5">
+    
+   <test  name="Test1" >
+ 	<parameter name="excelFile" value="Availity 5 21109.xlsx"/>
+    <classes>
+      <class name="rpa.PaymentPostingMaximus"/>
+    </classes>
+  </test> 
+ <!--  
+   <test name="Test2">
+ 	<parameter name="excelFile" value="Availity 2.xlsx"/>
+    <classes>
+      <class name="rpa.PaymentPostingMaximus"/>
+    </classes>
+  </test> 
+ 
+  
+    
+    <test name="Test3">
+ 	<parameter name="excelFile" value="Availity 3.xlsx"/>
+    <classes>
+      <class name="rpa.PaymentPostingMaximus"/>
+    </classes>
+  </test>
+  
+
+    <test name="Test4">
+ 	<parameter name="excelFile" value="Availity 4.xlsx"/>
+    <classes>
+      <class name="rpa.PaymentPostingMaximus"/>
+    </classes>
+  </test> 
+  
+  
+    <test name="Test5">
+ 	<parameter name="excelFile" value="Availity 5.xlsx"/>
+    <classes>
+      <class name="rpa.PaymentPostingMaximus"/>
+    </classes>
+  </test>
+ -->
+  
+</suite> 
