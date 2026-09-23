@@ -152,11 +152,7 @@
 			<version>2.20.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>Assignment</groupId>
-			<artifactId>Assignment</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 		 <dependency>
         <groupId>com.aspose</groupId>
         <artifactId>aspose-cells</artifactId>
