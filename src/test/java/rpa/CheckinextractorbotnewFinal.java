@@ -68,7 +68,7 @@ public class CheckinextractorbotnewFinal {
     private static final int    PRUNE_DAYS   		= 45;   								// MUST be > WINDOW_DAYS
     private static final int    RESTART_EVERY 		= 70;  									// relaunch browser every N downloads
     private static final int    ROW_FIND_ATTEMPTS 	= 4;
-    private static final Path   SEEN_FILE    		= Paths.get("extracted_ids.json");
+    private static final Path   SEEN_FILE    		= Paths.get("\\\\10.170.193.71\\Development Team\\RPA\\Development\\extracted_ids.json");
     private static final DateTimeFormatter STAMP = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 
     private static final Path AUDIT_DIR = Paths.get("audit");
