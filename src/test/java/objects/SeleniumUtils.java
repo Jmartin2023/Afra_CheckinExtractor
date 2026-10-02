@@ -94,7 +94,7 @@ public class SeleniumUtils {
 
         System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true");
  //       WebDriverManager.chromedriver().setup();
-     System.setProperty("webdriver.chrome.driver", "\\\\10.170.193.71\\Development Team\\RPA\\Development\\chromedriver\\chromedriver-win64\\chromedriver152.exe");
+     System.setProperty("webdriver.chrome.driver", "\\\\10.170.193.71\\Development Team\\RPA\\Development\\chromedriver\\chromedriver-win64\\chromedriver154.exe");
     //    System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\chromedriver.exe");
 //        WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver(options);
