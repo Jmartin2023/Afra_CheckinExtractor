@@ -8,6 +8,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,14 +25,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.*;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Comparator;
-import java.util.stream.Stream;
-import org.apache.commons.io.FileUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
@@ -54,6 +48,7 @@ import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 
 import objects.SeleniumUtils;
 import objects.Utility;
@@ -610,6 +605,7 @@ public class BillerClaimExtractorBotcopy {
     // =======================================================================
     //  ENTRY POINT  — pass the biller file path as arg[0]
     // =======================================================================
+	@Test
     public static void main(String[] args) throws Exception {
 
     	String file = BillerClaimExtractorBotcopy.getLatestXlsxWithinLastHour(BILLER_FILE_path);
