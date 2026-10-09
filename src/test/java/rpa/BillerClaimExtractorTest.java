@@ -123,7 +123,7 @@ public class BillerClaimExtractorTest  {
 //        String stamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
         String stamp = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("MM-dd-yyyy"));
         Path runDir = OUTPUT_ROOT.resolve("Ondemand_" + stamp);
-        pdfDir = runDir.resolve("pdfs");
+        pdfDir = runDir;
         Files.createDirectories(pdfDir);
         Workbook wb;
         try (InputStream in = Files.newInputStream(billerFile)) {
@@ -593,12 +593,19 @@ public class BillerClaimExtractorTest  {
 		Path sourceFile = Paths.get(Excelpath);
 		Path destDir = Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+today+"\\"+filename);
 		try {
-			if (!Files.exists(destDir)) {
-				Files.createDirectories(destDir);
-			}
+//			if (!Files.exists(destDir)) {
+//				Files.createDirectories(destDir);
+//			}
 			Path destFile = destDir.resolve(sourceFile.getFileName());
-			Files.copy(sourceFile, destFile, StandardCopyOption.REPLACE_EXISTING);
-			System.out.println("Excel file copied successfully to: " + destFile);
+//			Files.copy(sourceFile, destFile, StandardCopyOption.REPLACE_EXISTING);
+//			System.out.println("Excel file copied successfully to: " + destFile);
+
+	        if (Files.exists(destFile) && Files.size(destFile) == Files.size(sourceFile)) {
+	            Files.delete(sourceFile);
+	            System.out.println("Source file deleted successfully from: " + sourceFile);
+	        } else {
+	            System.out.println("WARNING: Copy verification failed. Source file NOT deleted.");
+	        }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
