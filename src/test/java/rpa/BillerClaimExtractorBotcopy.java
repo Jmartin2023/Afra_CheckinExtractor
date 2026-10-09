@@ -72,7 +72,7 @@ public class BillerClaimExtractorBotcopy {
 
     // Biller file to process. Overridable via arg[0]; falls back to this path.
 //    private static final Path   BILLER_FILE 		= Paths.get("\\annotated_AFRA Reconcillation from JanTo  Oct2026.xlsx");
-    private static final String  BILLER_FILE_path  = "C:\\Users\\jmartin\\eclipse-workspace\\NextGen Report Extraction\\";
+    private static final String  BILLER_FILE_path  = "\\\\10.172.192.34\\ai automation\\15 - Afra\\excel\\";
     public static Path BILLER_FILE = null ;
 
     // Header names in the biller file (matched case-insensitively).
