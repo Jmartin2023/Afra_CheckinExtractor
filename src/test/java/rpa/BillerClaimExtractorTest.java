@@ -1,5 +1,6 @@
 package rpa;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +9,6 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -26,6 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
@@ -38,9 +39,11 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Pdf;
 import org.openqa.selenium.PrintsPage;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,6 +51,8 @@ import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import objects.SeleniumUtils;
@@ -58,14 +63,14 @@ public class BillerClaimExtractorTest  {
     static Utility utility;
     static String projDirPath;
     static Logger logger = LogManager.getLogger(BillerClaimExtractorTest.class);
-
+    public static int consecutiveFailCounter =0;
     // ---- Config -----------------------------------------------------------
     private static final int    RESTART_EVERY 		= 70;
     private static final int    ROW_FIND_ATTEMPTS 	= 4;
     private static final String FACILITY 			= "Afra Wound Care Associates LLC";
     private static final String todaydate = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("MM-dd-yyyy"));
     private static final Path   OUTPUT_ROOT 		= Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\");   // PHI: protect
-
+	static int i = 1;
 
 //    private static final Path   BILLER_FILE 		= Paths.get("\\annotated_AFRA Reconcillation from JanTo  Oct2026.xlsx");
     private static final String  BILLER_FILE_path  = "\\\\10.172.192.34\\ai automation\\15 - Afra\\excel";
@@ -117,6 +122,7 @@ public class BillerClaimExtractorTest  {
 
     //  MAIN FLOW  — driven by the biller workbook
     public void run(Path billerFile) throws IOException {
+    	i++;
         if (!Files.exists(billerFile))
             throw new FileNotFoundException("Biller file not found: " + billerFile);
         
@@ -646,4 +652,46 @@ public class BillerClaimExtractorTest  {
         }
   
     }
+	
+	@AfterMethod()
+	public void afterMethod(ITestResult result) throws IOException {
+			 int status = result.getStatus();
+
+			    if (status == ITestResult.FAILURE) {
+				
+					consecutiveFailCounter++;
+					// Test Failed
+					String error = (result.getThrowable() != null)
+			                ? result.getThrowable().getLocalizedMessage()
+			                : "Unknown failure";
+					System.out.println(error);
+					//result.getThrowable().printStackTrace();
+					String Tstamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HHmmss"));
+					try {
+						TakesScreenshot ts = (TakesScreenshot) driver;
+						File ss = ts.getScreenshotAs(OutputType.FILE);
+						String ssPath = "./Screenshots/" + result.getName() + " - " + Tstamp + ".png";
+						FileUtils.copyFile(ss, new File(ssPath));
+					} catch (Exception e) {
+						System.out.println("Error taking screenshot");
+					}
+
+				}
+			    else if (status == ITestResult.SUCCESS) {
+			        consecutiveFailCounter = 0;
+			        System.out.println("Test completed successfully");
+
+			    }else if (status == ITestResult.SKIP) {
+
+			        Throwable t = result.getThrowable();
+			        if (t != null) {
+			        	  System.out.println("Test skipped: " + t.getMessage());
+			        } else {
+			        	  System.out.println("Test skipped");
+			        }
+
+			    }
+	}
+	
+	
 }
