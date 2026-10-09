@@ -53,11 +53,11 @@ import org.testng.annotations.Test;
 import objects.SeleniumUtils;
 import objects.Utility;
 
-public class BillerClaimExtractorBotcopy {
+public class BillerClaimExtractorTest  {
     static SeleniumUtils sel;
     static Utility utility;
     static String projDirPath;
-    static Logger logger = LogManager.getLogger(BillerClaimExtractorBotcopy.class);
+    static Logger logger = LogManager.getLogger(BillerClaimExtractorTest.class);
 
     // ---- Config -----------------------------------------------------------
     private static final int    RESTART_EVERY 		= 70;
@@ -81,8 +81,9 @@ public class BillerClaimExtractorBotcopy {
     private WebDriver driver;
     private WebDriverWait wait;
     private Path pdfDir; 
-
-    public BillerClaimExtractorBotcopy(WebDriver driver) { setDriver(driver); }
+    
+    public BillerClaimExtractorTest() { } 
+    public BillerClaimExtractorTest(WebDriver driver) { setDriver(driver); }
 
     private void setDriver(WebDriver d) {
         this.driver = d;
@@ -572,7 +573,7 @@ public class BillerClaimExtractorBotcopy {
                     .filter(Files::isRegularFile)
                     .filter(p -> p.getFileName().toString().toLowerCase().endsWith(".xlsx"))
                     .filter(p -> lastModified(p).isAfter(oneHourAgo))
-                    .max(Comparator.comparing(BillerClaimExtractorBotcopy::lastModified))
+                    .max(Comparator.comparing(BillerClaimExtractorTest::lastModified))
                     .map(p -> p.getFileName().toString())
                     .orElse(null);
         }
@@ -609,7 +610,7 @@ public class BillerClaimExtractorBotcopy {
 	@Test
     public static void extractBillerClaims() throws Exception {
 
-    	String file = BillerClaimExtractorBotcopy.getLatestXlsxWithinLastHour(BILLER_FILE_path);
+    	String file = BillerClaimExtractorTest.getLatestXlsxWithinLastHour(BILLER_FILE_path);
     	if (file == null) {
     	    throw new IllegalStateException("No .xlsx downloaded in the last hour");
     	}
@@ -620,10 +621,10 @@ public class BillerClaimExtractorBotcopy {
 		Path billerFile = Paths.get(BILLER_FILE_path, file); 
         logger.info("Biller file: " + billerFile);
         WebDriver driver = null;
-        BillerClaimExtractorBotcopy bot = null;
+        BillerClaimExtractorTest bot = null;
         try {
             driver = loginAndOpen();
-            bot = new BillerClaimExtractorBotcopy(driver);
+            bot = new BillerClaimExtractorTest(driver);
             bot.run(billerFile);
         } finally {
             try {
