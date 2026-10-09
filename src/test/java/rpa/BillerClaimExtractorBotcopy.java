@@ -63,9 +63,10 @@ public class BillerClaimExtractorBotcopy {
     private static final int    RESTART_EVERY 		= 70;
     private static final int    ROW_FIND_ATTEMPTS 	= 4;
     private static final String FACILITY 			= "Afra Wound Care Associates LLC";
-    private static final Path   OUTPUT_ROOT 		= Paths.get("biller_runs");   // PHI: protect
+    private static final String todaydate = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+    private static final Path   OUTPUT_ROOT 		= Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+todaydate);   // PHI: protect
 
-    // Biller file to process. Overridable via arg[0]; falls back to this path.
+
 //    private static final Path   BILLER_FILE 		= Paths.get("\\annotated_AFRA Reconcillation from JanTo  Oct2026.xlsx");
     private static final String  BILLER_FILE_path  = "C:\\Users\\jmartin\\eclipse-workspace\\NextGen Report Extraction\\";
     public static Path BILLER_FILE = null ;
