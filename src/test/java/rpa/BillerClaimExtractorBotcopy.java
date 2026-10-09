@@ -72,7 +72,7 @@ public class BillerClaimExtractorBotcopy {
 
     // Biller file to process. Overridable via arg[0]; falls back to this path.
 //    private static final Path   BILLER_FILE 		= Paths.get("\\annotated_AFRA Reconcillation from JanTo  Oct2026.xlsx");
-    private static final String  BILLER_FILE_path  = "\\\\10.172.192.34\\ai automation\\15 - Afra\\excel\\";
+    private static final String  BILLER_FILE_path  = "C:\\Users\\jmartin\\eclipse-workspace\\NextGen Report Extraction\\";
     public static Path BILLER_FILE = null ;
 
     // Header names in the biller file (matched case-insensitively).
@@ -589,6 +589,23 @@ public class BillerClaimExtractorBotcopy {
             throw new UncheckedIOException(e);
         }
     }
+    
+	public static void fileCopytoplace(String Excelpath , String filename ) {
+		String today = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+		Path sourceFile = Paths.get(Excelpath);
+		Path destDir = Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+today+"\\"+filename);
+		try {
+			if (!Files.exists(destDir)) {
+				Files.createDirectories(destDir);
+			}
+			Path destFile = destDir.resolve(sourceFile.getFileName());
+			Files.copy(sourceFile, destFile, StandardCopyOption.REPLACE_EXISTING);
+			System.out.println("Excel file copied successfully to: " + destFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 
     // =======================================================================
     //  ENTRY POINT  — pass the biller file path as arg[0]
@@ -611,8 +628,15 @@ public class BillerClaimExtractorBotcopy {
             bot = new BillerClaimExtractorBotcopy(driver);
             bot.run(billerFile);
         } finally {
-            try { if (bot != null && bot.driver != null) bot.driver.quit(); }
-            catch (Exception ignore) { }
+            try {
+            	if (bot != null && bot.driver != null)
+            		bot.driver.quit();
+            	fileCopytoplace(BILLER_FILE_path+file , file );
+            }
+            catch (Exception ignore) { 
+            	
+            }
         }
+  
     }
 }
