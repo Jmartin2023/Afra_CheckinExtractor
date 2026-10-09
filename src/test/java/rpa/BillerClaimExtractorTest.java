@@ -64,7 +64,7 @@ public class BillerClaimExtractorTest  {
     private static final int    ROW_FIND_ATTEMPTS 	= 4;
     private static final String FACILITY 			= "Afra Wound Care Associates LLC";
     private static final String todaydate = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("MM-dd-yyyy"));
-    private static final Path   OUTPUT_ROOT 		= Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+todaydate);   // PHI: protect
+    private static final Path   OUTPUT_ROOT 		= Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+todaydate+"_ondemand");   // PHI: protect
 
 
 //    private static final Path   BILLER_FILE 		= Paths.get("\\annotated_AFRA Reconcillation from JanTo  Oct2026.xlsx");
@@ -590,7 +590,7 @@ public class BillerClaimExtractorTest  {
 	public static void fileCopytoplace(String Excelpath , String filename ) {
 		String today = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("MM-dd-yyyy"));
 		Path sourceFile = Paths.get(Excelpath);
-		Path destDir = Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+today+"\\"+filename);
+		Path destDir = Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+today+"_ondemand\\"+filename);
 		try {
 			if (!Files.exists(destDir)) {
 				Files.createDirectories(destDir);
