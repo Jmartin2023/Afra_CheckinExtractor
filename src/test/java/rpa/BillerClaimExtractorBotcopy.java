@@ -607,7 +607,7 @@ public class BillerClaimExtractorBotcopy {
     //  ENTRY POINT  — pass the biller file path as arg[0]
     // =======================================================================
 	@Test
-    public static void main(String[] args) throws Exception {
+    public static void extractBillerClaims() throws Exception {
 
     	String file = BillerClaimExtractorBotcopy.getLatestXlsxWithinLastHour(BILLER_FILE_path);
     	if (file == null) {
@@ -616,7 +616,8 @@ public class BillerClaimExtractorBotcopy {
     	System.out.println("Latest file: " + file);
     	System.out.println(BILLER_FILE_path+file);
     	BILLER_FILE = Paths.get(BILLER_FILE_path+file);
-        Path billerFile = (args.length >= 1) ? Paths.get(args[0]) : BILLER_FILE;
+        // Path billerFile = (args.length >= 1) ? Paths.get(args[0]) : BILLER_FILE;
+		Path billerFile = Paths.get(BILLER_FILE_path, file); 
         logger.info("Biller file: " + billerFile);
         WebDriver driver = null;
         BillerClaimExtractorBotcopy bot = null;
