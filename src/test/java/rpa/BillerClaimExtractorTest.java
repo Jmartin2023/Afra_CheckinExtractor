@@ -64,11 +64,11 @@ public class BillerClaimExtractorTest  {
     private static final int    ROW_FIND_ATTEMPTS 	= 4;
     private static final String FACILITY 			= "Afra Wound Care Associates LLC";
     private static final String todaydate = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("MM-dd-yyyy"));
-    private static final Path   OUTPUT_ROOT 		= Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+todaydate+"_ondemand");   // PHI: protect
+    private static final Path   OUTPUT_ROOT 		= Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\");   // PHI: protect
 
 
 //    private static final Path   BILLER_FILE 		= Paths.get("\\annotated_AFRA Reconcillation from JanTo  Oct2026.xlsx");
-    private static final String  BILLER_FILE_path  = "\\\\10.172.192.34\\ai automation\\15 - Afra\\excel\\";
+    private static final String  BILLER_FILE_path  = "\\\\10.172.192.34\\ai automation\\15 - Afra\\excel";
     public static Path BILLER_FILE = null ;
 
     // Header names in the biller file (matched case-insensitively).
@@ -120,8 +120,9 @@ public class BillerClaimExtractorTest  {
         if (!Files.exists(billerFile))
             throw new FileNotFoundException("Biller file not found: " + billerFile);
         
-        String stamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-        Path runDir = OUTPUT_ROOT.resolve("run_" + stamp);
+//        String stamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String stamp = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+        Path runDir = OUTPUT_ROOT.resolve("Ondemand_" + stamp);
         pdfDir = runDir.resolve("pdfs");
         Files.createDirectories(pdfDir);
         Workbook wb;
@@ -590,7 +591,7 @@ public class BillerClaimExtractorTest  {
 	public static void fileCopytoplace(String Excelpath , String filename ) {
 		String today = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("MM-dd-yyyy"));
 		Path sourceFile = Paths.get(Excelpath);
-		Path destDir = Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+today+"_ondemand\\"+filename);
+		Path destDir = Paths.get("\\\\10.172.192.34\\ai automation\\15 - Afra\\"+today+"\\"+filename);
 		try {
 			if (!Files.exists(destDir)) {
 				Files.createDirectories(destDir);
